@@ -52,12 +52,33 @@ import { chatBubbleIcon, closeIcon } from './icons';
     }
   }
 
+  // Compute logo URL from script source
+  function getLogoUrl(): string {
+    const currentScript = document.currentScript as HTMLScriptElement;
+    if (currentScript && currentScript.src) {
+      const url = new URL(currentScript.src);
+      return `${url.origin}/logo.png`;
+    }
+    // Fallback for demo or direct script
+    const scripts = document.querySelectorAll('script[src*="widget.js"]');
+    if (scripts.length > 0) {
+      const url = new URL((scripts[0] as HTMLScriptElement).src);
+      return `${url.origin}/logo.png`;
+    }
+    return '/logo.png';
+  }
+
+  const logoUrl = getLogoUrl();
+  const logoHtml = `<img src="${logoUrl}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;" />`;
+
   function render() {
     console.log('NAMDTU Widget: Rendering button...');
+    console.log('NAMDTU Widget: Logo URL:', logoUrl);
+
     // Create floating action button
     button = document.createElement('button');
     button.id = 'namdtu-widget-button';
-    button.innerHTML = chatBubbleIcon;
+    button.innerHTML = logoHtml;
     button.style.cssText = `
       position: fixed;
       ${position === 'bottom-right' ? 'right: 20px;' : 'left: 20px;'}
@@ -65,24 +86,32 @@ import { chatBubbleIcon, closeIcon } from './icons';
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: #3b82f6;
+      background: white;
       color: white;
-      border: none;
+      border: 2px solid #0E104B;
       cursor: pointer;
       z-index: 999999;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 24px rgba(59, 130, 246, 0.35);
+      box-shadow: 0 4px 24px rgba(14, 16, 75, 0.25);
       transition: all 0.2s ease;
+      padding: 0;
+      overflow: hidden;
     `;
 
     button.addEventListener('click', toggleWidget);
     button.addEventListener('mouseenter', () => {
-      if (button) button.style.transform = 'scale(1.05)';
+      if (button) {
+        button.style.transform = 'scale(1.05)';
+        button.style.boxShadow = '0 6px 30px rgba(14, 16, 75, 0.35)';
+      }
     });
     button.addEventListener('mouseleave', () => {
-      if (button) button.style.transform = 'scale(1)';
+      if (button) {
+        button.style.transform = 'scale(1)';
+        button.style.boxShadow = '0 4px 24px rgba(14, 16, 75, 0.25)';
+      }
     });
 
     document.body.appendChild(button);
@@ -170,6 +199,8 @@ import { chatBubbleIcon, closeIcon } from './icons';
       }, 10);
       // Change button icon to close
       button.innerHTML = closeIcon;
+      button.style.background = '#0E104B';
+      button.style.color = 'white';
     }
   }
 
@@ -182,9 +213,9 @@ import { chatBubbleIcon, closeIcon } from './icons';
       setTimeout(() => {
         if (container) container.style.display = 'none';
       }, 300);
-      // Change button icon back to chat
-      button.innerHTML = chatBubbleIcon;
-      button.style.background = '#3b82f6';
+      // Change button icon back to logo
+      button.innerHTML = logoHtml;
+      button.style.background = 'white';
     }
   }
 
