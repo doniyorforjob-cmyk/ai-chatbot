@@ -1,13 +1,18 @@
-import { openai } from "@ai-sdk/openai";
+import { createOpenAI } from "@ai-sdk/openai";
 import { generateText } from "ai";
 import type { StorageActionWriter } from "convex/server";
 import { assert } from "convex-helpers";
 import { Id } from "../_generated/dataModel";
 
+const openrouter = createOpenAI({
+  baseURL: "https://openrouter.ai/api/v1",
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
+
 const AI_MODELS = {
-  image: openai.chat("gpt-4o-mini"),
-  pdf: openai.chat("gpt-4o"),
-  html: openai.chat("gpt-4o"),
+  image: openrouter("google/gemini-2.0-flash-lite-preview-02-05:free"),
+  pdf: openrouter("google/gemini-2.0-flash-lite-preview-02-05:free"),
+  html: openrouter("google/gemini-2.0-flash-lite-preview-02-05:free"),
 } as const;
 
 const SUPPORTED_IMAGE_TYPES = [
