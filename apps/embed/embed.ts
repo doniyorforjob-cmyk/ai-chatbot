@@ -11,32 +11,40 @@ import { chatBubbleIcon, closeIcon } from './icons';
   let organizationId: string | null = null;
   let position: 'bottom-right' | 'bottom-left' = EMBED_CONFIG.DEFAULT_POSITION;
 
-  // Try to get the current script
-  const currentScript = document.currentScript as HTMLScriptElement;
-  if (currentScript) {
-    organizationId = currentScript.getAttribute('data-organization-id');
-    position = (currentScript.getAttribute('data-position') as 'bottom-right' | 'bottom-left') || EMBED_CONFIG.DEFAULT_POSITION;
-  } else {
-    // Fallback: find any script tag that has our required attribute
-    const scripts = document.querySelectorAll('script[data-organization-id]');
-    const embedScript = Array.from(scripts).find(script =>
-      script.getAttribute('src')?.includes('widget') ||
-      script.getAttribute('src')?.includes('embed')
-    ) as HTMLScriptElement;
+  function findConfig() {
+    console.log('NAMDTU Widget: Searching for configuration...');
 
-    if (embedScript) {
-      organizationId = embedScript.getAttribute('data-organization-id');
-      position = (embedScript.getAttribute('data-position') as 'bottom-right' | 'bottom-left') || EMBED_CONFIG.DEFAULT_POSITION;
+    // 1. Try document.currentScript
+    const currentScript = document.currentScript as HTMLScriptElement;
+    if (currentScript && currentScript.getAttribute('data-organization-id')) {
+      console.log('NAMDTU Widget: Found via currentScript');
+      organizationId = currentScript.getAttribute('data-organization-id');
+      position = (currentScript.getAttribute('data-position') as 'bottom-right' | 'bottom-left') || EMBED_CONFIG.DEFAULT_POSITION;
+      return;
+    }
+
+    // 2. Fallback: Search all scripts for data-organization-id
+    const scripts = document.querySelectorAll('script[data-organization-id]');
+    if (scripts.length > 0) {
+      console.log('NAMDTU Widget: Found via data-organization-id attribute');
+      const widgetScript = scripts[0] as HTMLScriptElement;
+      organizationId = widgetScript.getAttribute('data-organization-id');
+      position = (widgetScript.getAttribute('data-position') as 'bottom-right' | 'bottom-left') || EMBED_CONFIG.DEFAULT_POSITION;
     }
   }
 
+  findConfig();
+
   // Exit if no organization ID
   if (!organizationId) {
-    console.error('NAMDTU Widget: data-organization-id attribute is required');
+    console.error('NAMDTU Widget: data-organization-id attribute is required. Script stopped.');
     return;
   }
 
+  console.log('NAMDTU Widget: Initializing for Org:', organizationId);
+
   function init() {
+    console.log('NAMDTU Widget: DOM ready state:', document.readyState);
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', render);
     } else {
@@ -45,6 +53,7 @@ import { chatBubbleIcon, closeIcon } from './icons';
   }
 
   function render() {
+    console.log('NAMDTU Widget: Rendering button...');
     // Create floating action button
     button = document.createElement('button');
     button.id = 'namdtu-widget-button';
