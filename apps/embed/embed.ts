@@ -17,10 +17,11 @@ import { chatBubbleIcon, closeIcon } from './icons';
     organizationId = currentScript.getAttribute('data-organization-id');
     position = (currentScript.getAttribute('data-position') as 'bottom-right' | 'bottom-left') || EMBED_CONFIG.DEFAULT_POSITION;
   } else {
-    // Fallback: find script tag by src
-    const scripts = document.querySelectorAll('script[src*="embed"]');
+    // Fallback: find any script tag that has our required attribute
+    const scripts = document.querySelectorAll('script[data-organization-id]');
     const embedScript = Array.from(scripts).find(script =>
-      script.hasAttribute('data-organization-id')
+      script.getAttribute('src')?.includes('widget') ||
+      script.getAttribute('src')?.includes('embed')
     ) as HTMLScriptElement;
 
     if (embedScript) {
