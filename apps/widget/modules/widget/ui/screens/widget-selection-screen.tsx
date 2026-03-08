@@ -58,7 +58,7 @@ export const WidgetSelectionScreen = () => {
   return (
     <>
       <WidgetHeader>
-        <div className="flex flex-col justify-between gap-y-2 px-2 font-semibold">
+        <div className="flex flex-col justify-between gap-y-2 px-2 py-2 font-semibold">
           <p className="text-2xl">
             Namangan davlat texnika universiteti
           </p>
