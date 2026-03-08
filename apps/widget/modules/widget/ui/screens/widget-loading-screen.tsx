@@ -163,13 +163,16 @@ export const WidgetLoadingScreen = ({ organizationId }: { organizationId: string
   return (
     <>
       <WidgetHeader>
-        <div className="flex flex-col justify-between gap-y-2 px-2 py-2 font-semibold">
-          <p className="text-2xl">
-            Namangan davlat texnika universiteti
-          </p>
-          <p className="text-sm font-medium opacity-90">
-            Onlayn yordamchi bo&apos;limi
-          </p>
+        <div className="flex items-center gap-x-3 px-2 py-2 font-semibold">
+          <img src="/logo.png" alt="NamDTU Logo" className="size-10 rounded-full bg-white p-1" />
+          <div className="flex flex-col">
+            <p className="text-lg leading-tight text-white mb-0.5">
+              Namangan davlat texnika universiteti
+            </p>
+            <p className="text-[10px] font-medium opacity-90 uppercase tracking-wider text-white">
+              Onlayn yordamchi bo&apos;limi
+            </p>
+          </div>
         </div>
       </WidgetHeader>
       <div className="flex flex-1 flex-col items-center justify-center gap-y-4 p-4 text-muted-foreground">
