@@ -73,16 +73,13 @@ export const WidgetAuthScreen = () => {
   return (
     <>
       <WidgetHeader>
-        <div className="flex items-center gap-x-3 px-2 py-2 font-semibold">
-          <img src="/logo.png" alt="NamDTU Logo" className="size-12 rounded-full bg-white p-1" />
-          <div className="flex flex-col gap-y-1">
-            <p className="text-xl leading-tight">
-              Namangan davlat texnika universiteti
-            </p>
-            <div className="flex items-center gap-x-1.5 mt-0.5">
-              <div className="size-2 rounded-full border border-white bg-green-500" />
-              <p className="text-[10px] font-medium opacity-90 uppercase tracking-wider">Onlayn maslahatchi!</p>
-            </div>
+        <div className="flex flex-col justify-between gap-y-2 px-2 py-2 font-semibold">
+          <p className="text-3xl">
+            Namangan davlat texnika universiteti
+          </p>
+          <div className="flex items-center gap-x-1.5 mt-1">
+            <div className="size-2 rounded-full border border-white bg-green-500" />
+            <p className="text-[10px] font-medium opacity-90">Onlayn maslahatchi!</p>
           </div>
         </div>
       </WidgetHeader>
