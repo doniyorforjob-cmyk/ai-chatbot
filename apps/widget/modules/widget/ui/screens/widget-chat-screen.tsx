@@ -36,7 +36,7 @@ import { AIResponse } from "@workspace/ui/components/ai/response";
 import { useMemo } from "react";
 
 const formSchema = z.object({
-  message: z.string().min(1, "Message is required"),
+  message: z.string().min(1, "Xabar yozish shart"),
 });
 
 export const WidgetChatScreen = () => {
@@ -71,9 +71,9 @@ export const WidgetChatScreen = () => {
     api.public.conversations.getOne,
     conversationId && contactSessionId
       ? {
-          conversationId,
-          contactSessionId,
-        } 
+        conversationId,
+        contactSessionId,
+      }
       : "skip"
   );
 
@@ -81,9 +81,9 @@ export const WidgetChatScreen = () => {
     api.public.messages.getMany,
     conversation?.threadId && contactSessionId
       ? {
-          threadId: conversation.threadId,
-          contactSessionId,
-        }
+        threadId: conversation.threadId,
+        contactSessionId,
+      }
       : "skip",
     { initialNumItems: 10 },
   );
@@ -127,7 +127,13 @@ export const WidgetChatScreen = () => {
           >
             <ArrowLeftIcon />
           </Button>
-          <p>Chat</p>
+          <div className="flex flex-col overflow-hidden">
+            <p className="text-sm font-semibold truncate">Namangan davlat texnika universiteti</p>
+            <div className="flex items-center gap-x-1.5">
+              <div className="size-2 rounded-full border border-white bg-green-500" />
+              <p className="text-[10px] font-medium opacity-90">Onlayn maslahatchi!</p>
+            </div>
+          </div>
         </div>
         <Button
           size="icon"
@@ -190,42 +196,42 @@ export const WidgetChatScreen = () => {
         </AISuggestions>
       )}
       <Form {...form}>
-          <AIInput
-            className="rounded-none border-x-0 border-b-0"
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
-            <FormField
-              control={form.control}
-              disabled={conversation?.status === "resolved"}
-              name="message"
-              render={({ field }) => (
-                <AIInputTextarea
-                  disabled={conversation?.status === "resolved"}
-                  onChange={field.onChange}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && !e.shiftKey) {
-                      e.preventDefault();
-                      form.handleSubmit(onSubmit)();
-                    }
-                  }}
-                  placeholder={
-                    conversation?.status === "resolved"
-                      ? "This conversation has been resolved."
-                      : "Type your message..."
+        <AIInput
+          className="rounded-none border-x-0 border-b-0"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <FormField
+            control={form.control}
+            disabled={conversation?.status === "resolved"}
+            name="message"
+            render={({ field }) => (
+              <AIInputTextarea
+                disabled={conversation?.status === "resolved"}
+                onChange={field.onChange}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    form.handleSubmit(onSubmit)();
                   }
-                  value={field.value}
-                />
-              )}
-            />
-            <AIInputToolbar>
-              <AIInputTools />
-              <AIInputSubmit
-                disabled={conversation?.status === "resolved" || !form.formState.isValid}
-                status="ready"
-                type="submit"
+                }}
+                placeholder={
+                  conversation?.status === "resolved"
+                    ? "Ushbu suhbat yakunlandi."
+                    : "Xabaringizni yozing..."
+                }
+                value={field.value}
               />
-            </AIInputToolbar>
-          </AIInput>
+            )}
+          />
+          <AIInputToolbar>
+            <AIInputTools />
+            <AIInputSubmit
+              disabled={conversation?.status === "resolved" || !form.formState.isValid}
+              status="ready"
+              type="submit"
+            />
+          </AIInputToolbar>
+        </AIInput>
       </Form>
     </>
   );

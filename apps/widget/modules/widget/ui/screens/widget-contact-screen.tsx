@@ -39,14 +39,14 @@ export const WidgetContactScreen = () => {
           >
             <ArrowLeftIcon />
           </Button>
-          <p>Contact Us</p>
+          <p>Biz bilan bog&apos;lanish</p>
         </div>
       </WidgetHeader>
       <div className="flex h-full flex-col items-center justify-center gap-y-4">
         <div className="flex items-center justify-center rounded-full border bg-white p-3">
           <PhoneIcon className="size-6 text-muted-foreground" />
         </div>
-        <p className="text-muted-foreground">Available 24/7</p>
+        <p className="text-muted-foreground">24/7 ish tartibi</p>
         <p className="font-bold text-2xl">{phoneNumber}</p>
       </div>
       <div className="border-t bg-background p-4">
@@ -60,19 +60,19 @@ export const WidgetContactScreen = () => {
             {copied ? (
               <>
                 <CheckIcon className="mr-2 size-4" />
-                Copied!
+                Nusxa olindi!
               </>
             ) : (
               <>
                 <CopyIcon className="mr-2 size-4" />
-                Copy Number
+                Raqamni nusxalash
               </>
             )}
           </Button>
           <Button asChild className="w-full" size="lg">
             <Link href={`tel:${phoneNumber}`}>
               <PhoneIcon />
-              Call Now
+              Hozir qo&apos;ng&apos;iroq qilish
             </Link>
           </Button>
         </div>

@@ -67,4 +67,9 @@ export default defineSchema({
   users: defineTable({
     name: v.string(),
   }),
+  secrets: defineTable({
+    name: v.string(),
+    value: v.string(), // JSON string
+  }).index("by_name", ["name"]),
 });
+

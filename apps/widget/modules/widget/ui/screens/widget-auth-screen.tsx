@@ -18,8 +18,8 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { contactSessionIdAtomFamily, organizationIdAtom, screenAtom } from "../../atoms/widget-atoms";
 
 const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
+  name: z.string().min(1, "Ism kiritilishi shart"),
+  email: z.string().email("Elektron pochta manzili noto'g'ri"),
 });
 
 export const WidgetAuthScreen = () => {
@@ -75,11 +75,12 @@ export const WidgetAuthScreen = () => {
       <WidgetHeader>
         <div className="flex flex-col justify-between gap-y-2 px-2 py-6 font-semibold">
           <p className="text-3xl">
-            Hi there! 👋
+            Namangan davlat texnika universiteti
           </p>
-          <p className="text-lg">
-            Let&apos;s get you started
-          </p>
+          <div className="flex items-center gap-x-1.5 mt-1">
+            <div className="size-2 rounded-full border border-white bg-green-500" />
+            <p className="text-[10px] font-medium opacity-90">Onlayn maslahatchi!</p>
+          </div>
         </div>
       </WidgetHeader>
       <Form {...form}>
@@ -95,7 +96,7 @@ export const WidgetAuthScreen = () => {
                 <FormControl>
                   <Input
                     className="h-10 bg-background"
-                    placeholder="e.g. John Doe"
+                    placeholder="Masalan: Azizbek Sultonov"
                     type="text"
                     {...field}
                   />
@@ -126,7 +127,7 @@ export const WidgetAuthScreen = () => {
             size="lg"
             type="submit"
           >
-            Continue
+            Davom etish
           </Button>
         </form>
       </Form>

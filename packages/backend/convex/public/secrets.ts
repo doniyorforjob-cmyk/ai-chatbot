@@ -22,7 +22,7 @@ export const getVapiSecrets = action({
 
     const secretName = plugin.secretName;
 
-    const secret = await getSecretValue(secretName);
+    const secret = await getSecretValue(ctx, secretName);
 
     const secretData = parseSecretString<{
       privateApiKey: string;

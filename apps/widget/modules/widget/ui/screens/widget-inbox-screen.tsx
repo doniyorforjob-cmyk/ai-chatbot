@@ -26,8 +26,8 @@ export const WidgetInboxScreen = () => {
     api.public.conversations.getMany,
     contactSessionId
       ? {
-          contactSessionId,
-        }
+        contactSessionId,
+      }
       : "skip",
     {
       initialNumItems: 10,
@@ -51,11 +51,17 @@ export const WidgetInboxScreen = () => {
           >
             <ArrowLeftIcon />
           </Button>
-          <p>Inbox</p>
+          <div className="flex flex-col overflow-hidden">
+            <p className="text-sm font-semibold truncate">Namangan davlat texnika universiteti</p>
+            <div className="flex items-center gap-x-1.5">
+              <div className="size-2 rounded-full border border-white bg-green-500" />
+              <p className="text-[10px] font-medium opacity-90">Onlayn maslahatchi!</p>
+            </div>
+          </div>
         </div>
       </WidgetHeader>
       <div className="flex flex-1 flex-col gap-y-2 p-4 overflow-y-auto">
-        {conversations?.results.length > 0 && 
+        {conversations?.results.length > 0 &&
           conversations?.results.map((conversation) => (
             <Button
               className="h-20 w-full justify-between"
@@ -68,7 +74,7 @@ export const WidgetInboxScreen = () => {
             >
               <div className="flex w-full flex-col gap-4 overflow-hidden text-start">
                 <div className="flex w-full items-center justify-between gap-x-2">
-                  <p className="text-muted-foreground text-xs">Chat</p>
+                  <p className="text-muted-foreground text-xs">Suhbat</p>
                   <p className="text-muted-foreground text-xs">
                     {formatDistanceToNow(new Date(conversation._creationTime))}
                   </p>

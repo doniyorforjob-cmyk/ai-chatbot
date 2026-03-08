@@ -9,6 +9,8 @@ import { useMutation } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
 import { useState } from "react";
 import { WidgetFooter } from "../components/widget-footer";
+import { format } from "date-fns";
+import { uz } from "date-fns/locale/uz";
 
 export const WidgetSelectionScreen = () => {
   const setScreen = useSetAtom(screenAtom);
@@ -31,12 +33,12 @@ export const WidgetSelectionScreen = () => {
       setErrorMessage("Missing Organization ID");
       return;
     }
-    
+
     if (!contactSessionId) {
       setScreen("auth");
       return;
     }
-    
+
     setIsPending(true);
     try {
       const conversationId = await createConversation({
@@ -56,16 +58,31 @@ export const WidgetSelectionScreen = () => {
   return (
     <>
       <WidgetHeader>
-        <div className="flex flex-col justify-between gap-y-2 px-2 py-6 font-semibold">
-          <p className="text-3xl">
-            Hi there! 👋
+        <div className="flex flex-col justify-between gap-y-2 px-2 font-semibold">
+          <p className="text-2xl">
+            Namangan davlat texnika universiteti
           </p>
-          <p className="text-lg">
-            Let&apos;s get you started
+          <p className="text-sm font-medium opacity-90">
+            Onlayn yordamchi bo&apos;limi
           </p>
         </div>
       </WidgetHeader>
       <div className="flex flex-1 flex-col gap-y-4 p-4 overflow-y-auto">
+        <div className="rounded-xl border bg-slate-100 p-4 text-sm shadow-sm">
+          <div className="flex flex-col gap-y-3">
+            <div className="flex items-center justify-between text-[10px] uppercase tracking-wider font-bold">
+              <p className="font-semibold text-slate-800 normal-case tracking-normal text-sm">Assalomu alaykum!</p>
+              <span className="text-muted-foreground capitalize">{format(new Date(), "d'-'MMMM", { locale: uz })}</span>
+            </div>
+            <p className="text-slate-600 leading-relaxed">
+              Maslahatchi savollaringizga onlayn yoki telefon qilish orqali javob qaytaradi! Iltimos o&apos;zingiz haqingizda to&apos;liq ma&apos;lumot qoldiring!
+            </p>
+            <div className="pt-2 border-t border-slate-200">
+              <p className="text-[11px] font-bold text-slate-500 uppercase mb-1">Qabul masalalarida Call-markaz:</p>
+              <p className="text-base font-bold text-primary tracking-tight">(69)-234-14-30</p>
+            </div>
+          </div>
+        </div>
         <Button
           className="h-16 w-full justify-between"
           variant="outline"
@@ -74,7 +91,7 @@ export const WidgetSelectionScreen = () => {
         >
           <div className="flex items-center gap-x-2">
             <MessageSquareTextIcon className="size-4" />
-            <span>Start chat</span>
+            <span>Chatni boshlash</span>
           </div>
           <ChevronRightIcon />
         </Button>
@@ -87,7 +104,7 @@ export const WidgetSelectionScreen = () => {
           >
             <div className="flex items-center gap-x-2">
               <MicIcon className="size-4" />
-              <span>Start voice call</span>
+              <span>Ovozli muloqot</span>
             </div>
             <ChevronRightIcon />
           </Button>
@@ -101,7 +118,7 @@ export const WidgetSelectionScreen = () => {
           >
             <div className="flex items-center gap-x-2">
               <PhoneIcon className="size-4" />
-              <span>Call us</span>
+              <span>Bizga qo&apos;ng&apos;iroq qiling</span>
             </div>
             <ChevronRightIcon />
           </Button>

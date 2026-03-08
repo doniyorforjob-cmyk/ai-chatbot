@@ -37,7 +37,13 @@ export const WidgetVoiceScreen = () => {
           >
             <ArrowLeftIcon />
           </Button>
-          <p>Voice Chat</p>
+          <div className="flex flex-col overflow-hidden">
+            <p className="text-sm font-semibold truncate">Namangan davlat texnika universiteti</p>
+            <div className="flex items-center gap-x-1.5">
+              <div className="size-2 rounded-full border border-white bg-green-500" />
+              <p className="text-[10px] font-medium opacity-90">Onlayn maslahatchi!</p>
+            </div>
+          </div>
         </div>
       </WidgetHeader>
       {transcript.length > 0 ? (
@@ -59,7 +65,7 @@ export const WidgetVoiceScreen = () => {
           <div className="flex items-center justify-center rounded-full border bg-white p-3">
             <MicIcon className="size-6 text-muted-foreground" />
           </div>
-          <p className="text-muted-foreground">Transcript will appear here</p>
+          <p className="text-muted-foreground">Suhbat matni bu yerda ko&apos;rinadi</p>
         </div>
       )}
       <div className="border-t bg-background p-4">
@@ -71,7 +77,7 @@ export const WidgetVoiceScreen = () => {
                 isSpeaking ? "animate-pulse bg-red-500" : "bg-green-500"
               )} />
               <span className="text-muted-foreground text-sm">
-                {isSpeaking ? "Assistant Speaking..." : "Listening..."}
+                {isSpeaking ? "Yordamchi javob bermoqda..." : "Sizni eshityapman..."}
               </span>
             </div>
           )}
@@ -84,7 +90,7 @@ export const WidgetVoiceScreen = () => {
                 onClick={() => endCall()}
               >
                 <MicOffIcon />
-                End call
+                Muloqotni yakunlash
               </Button>
             ) : (
               <Button
@@ -94,7 +100,7 @@ export const WidgetVoiceScreen = () => {
                 onClick={() => startCall()}
               >
                 <MicIcon />
-                Start call
+                Muloqotni boshlash
               </Button>
             )}
           </div>

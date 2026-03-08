@@ -31,15 +31,15 @@ export const WidgetLoadingScreen = ({ organizationId }: { organizationId: string
       return;
     }
 
-    setLoadingMessage("Finding organization ID...");
+    setLoadingMessage("Tashkilot ID raqami qidirilmoqda...");
 
     if (!organizationId) {
-      setErrorMessage("Organization ID is required");
+      setErrorMessage("Tashkilot ID raqami ko'rsatilishi shart");
       setScreen("error");
       return;
     }
 
-    setLoadingMessage("Verifying organization...");
+    setLoadingMessage("Tashkilot tekshirilmoqda...");
 
     validateOrganization({ organizationId })
       .then((result) => {
@@ -47,12 +47,12 @@ export const WidgetLoadingScreen = ({ organizationId }: { organizationId: string
           setOrganizationId(organizationId);
           setStep("session");
         } else {
-          setErrorMessage(result.reason || "Invalid configuration");
+          setErrorMessage(result.reason || "Noto'g'ri sozlama");
           setScreen("error");
         }
       })
       .catch(() => {
-        setErrorMessage("Unable to verify organization");
+        setErrorMessage("Tashkilotni tekshirish imkoni bo'lmadi");
         setScreen("error");
       })
   }, [
@@ -73,7 +73,7 @@ export const WidgetLoadingScreen = ({ organizationId }: { organizationId: string
       return;
     }
 
-    setLoadingMessage("Finding contact session ID...");
+    setLoadingMessage("Sessiya ID raqami qidirilmoqda...");
 
     if (!contactSessionId) {
       setSessionValid(false);
@@ -81,7 +81,7 @@ export const WidgetLoadingScreen = ({ organizationId }: { organizationId: string
       return;
     }
 
-    setLoadingMessage("Validating session...");
+    setLoadingMessage("Sessiya tekshirilmoqda...");
 
     validateContactSession({ contactSessionId })
       .then((result) => {
@@ -95,7 +95,7 @@ export const WidgetLoadingScreen = ({ organizationId }: { organizationId: string
   }, [step, contactSessionId, validateContactSession, setLoadingMessage]);
 
   // Step 3: Load Widget Settings
-  const widgetSettings = useQuery(api.public.widgetSettings.getByOrganizationId, 
+  const widgetSettings = useQuery(api.public.widgetSettings.getByOrganizationId,
     organizationId ? {
       organizationId,
     } : "skip",
@@ -105,7 +105,7 @@ export const WidgetLoadingScreen = ({ organizationId }: { organizationId: string
       return;
     }
 
-    setLoadingMessage("Loading widget settings...");
+    setLoadingMessage("Vidjet sozlamalari yuklanmoqda...");
 
     if (widgetSettings !== undefined) {
       setWidgetSettings(widgetSettings);
@@ -127,12 +127,12 @@ export const WidgetLoadingScreen = ({ organizationId }: { organizationId: string
     }
 
     if (!organizationId) {
-      setErrorMessage("Organization ID is required");
+      setErrorMessage("Tashkilot ID raqami ko'rsatilishi shart");
       setScreen("error");
       return;
     }
 
-    setLoadingMessage("Loading voice features...");
+    setLoadingMessage("Ovozli funktsiyalar yuklanmoqda...");
     getVapiSecrets({ organizationId })
       .then((secrets) => {
         setVapiSecrets(secrets);
@@ -163,19 +163,19 @@ export const WidgetLoadingScreen = ({ organizationId }: { organizationId: string
   return (
     <>
       <WidgetHeader>
-        <div className="flex flex-col justify-between gap-y-2 px-2 py-6 font-semibold">
-          <p className="text-3xl">
-            Hi there! 👋
+        <div className="flex flex-col justify-between gap-y-2 px-2 font-semibold">
+          <p className="text-2xl">
+            Namangan davlat texnika universiteti
           </p>
-          <p className="text-lg">
-            Let&apos;s get you started
+          <p className="text-sm font-medium opacity-90">
+            Onlayn yordamchi bo&apos;limi
           </p>
         </div>
       </WidgetHeader>
       <div className="flex flex-1 flex-col items-center justify-center gap-y-4 p-4 text-muted-foreground">
         <LoaderIcon className="animate-spin" />
         <p className="text-sm">
-         {loadingMessage || "Loading..."}
+          {loadingMessage || "Yuklanmoqda..."}
         </p>
       </div>
     </>

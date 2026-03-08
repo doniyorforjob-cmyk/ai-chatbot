@@ -16,14 +16,14 @@ export const WidgetErrorScreen = () => {
             Hi there! 👋
           </p>
           <p className="text-lg">
-            Let&apos;s get you started
+            Savollaringiz bo&apos;lsa, marhamat
           </p>
         </div>
       </WidgetHeader>
       <div className="flex flex-1 flex-col items-center justify-center gap-y-4 p-4 text-muted-foreground">
         <AlertTriangleIcon />
         <p className="text-sm">
-          {errorMessage || "Invalid configuration"}
+          {errorMessage || "Sozlamalarda xatolik"}
         </p>
       </div>
     </>
