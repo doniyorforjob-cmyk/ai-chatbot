@@ -1,18 +1,13 @@
-import { createOpenAI } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 import { generateText } from "ai";
 import type { StorageActionWriter } from "convex/server";
 import { assert } from "convex-helpers";
 import { Id } from "../_generated/dataModel";
 
-const openrouter = createOpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY,
-});
-
 const AI_MODELS = {
-  image: openrouter("google/gemini-2.0-flash-lite-preview-02-05:free"),
-  pdf: openrouter("google/gemini-2.0-flash-lite-preview-02-05:free"),
-  html: openrouter("google/gemini-2.0-flash-lite-preview-02-05:free"),
+  image: google("gemini-1.5-flash"),
+  pdf: google("gemini-1.5-flash"),
+  html: google("gemini-1.5-flash"),
 } as const;
 
 const SUPPORTED_IMAGE_TYPES = [

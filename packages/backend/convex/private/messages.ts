@@ -5,13 +5,8 @@ import { components, internal } from "../_generated/api";
 import { supportAgent } from "../system/ai/agents/supportAgent";
 import { paginationOptsValidator } from "convex/server";
 import { saveMessage } from "@convex-dev/agent";
-import { createOpenAI } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 import { OPERATOR_MESSAGE_ENHANCEMENT_PROMPT } from "../system/ai/constants";
-
-const openrouter = createOpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY,
-});
 
 export const enhanceResponse = action({
   args: {
@@ -53,7 +48,7 @@ export const enhanceResponse = action({
     */
 
     const response = await generateText({
-      model: openrouter("nvidia/nemotron-3-nano-30b-a3b:free"),
+      model: google("gemini-1.5-flash"),
       messages: [
         {
           role: "system",
